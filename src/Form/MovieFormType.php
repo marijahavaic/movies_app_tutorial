@@ -37,12 +37,11 @@ class MovieFormType extends AbstractType
                 ),
                 'label' => false,
             ])
-            ->add('imagePath', FileType::class, [
-                'attr' => array(
+            ->add('imagePath', FileType::class, array(
+                    'required' => false,
+                    'mapped' => false,
                     'class' => 'py-10',
-                ),
-                'label' => false,
-            ])
+                ))
             // ->add('actors')
         ;
     }
