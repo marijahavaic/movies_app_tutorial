@@ -18,20 +18,24 @@ class MoviesController extends AbstractController
         $this->em = $em;
         $this->movieRepository = $movieRepository;
     }
-    #[Route('/movies', name: 'movies')]
+
+    #[Route('/movies', methods:['GET'], name: 'movies')]
     public function index(): Response
-    {
-        // findAll() - SELECT * FROM movies;
-        // find() - SELECT * FROM movies WHERE id = 5;
-        // findBy() - SELECT * FROM movies ORDER BY id DESC;
-        // findOneBy() - SELECT * FROM movies WHERE id =6 AND title = 'The Dark Knight' ORDER BY id DESC;
-        // count() - SELECT COUNT() from movies WHERE id = 6;
-        // getClassName() - Entity name
-        
-    $movies = $this->movieRepository->findAll();
+    {        
+        $movies = $this->movieRepository->findAll();
 
         return $this->render('movies/index.html.twig', [
             'movies' => $movies
+        ]);
+    }
+
+    #[Route('/movies/{id}', methods:['GET'], name: 'movies')]
+    public function show(int $id): Response
+    {        
+        $movie = $this->movieRepository->find($id);
+
+        return $this->render('movies/show.html.twig', [
+            'movie' => $movie
         ]);
     }
 }
